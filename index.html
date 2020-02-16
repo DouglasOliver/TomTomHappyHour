@@ -63,7 +63,7 @@
         container: 'map',
         center: [-122.399048, 37.785461],
         style: 'tomtom://vector/1/basic-main',
-        zoom: 9
+        zoom: 14
     });
 	
 	map.addControl(new tt.FullscreenControl());
@@ -85,7 +85,7 @@
             const cityStoresListHeading = list.appendChild(document.createElement('h3'));
             cityStoresListHeading.innerHTML = name;
             cityStoresList = list.appendChild(document.createElement('div'));
-            cityStoresList.id = city;
+            cityStoresList.id = name;
             cityStoresList.className = 'list-entries-container';
             cityStoresListHeading.addEventListener('click', function (e) {
                 map.fitBounds(getMarkersBoundsForCity(e.target.innerText), {padding: 50});
@@ -95,16 +95,16 @@
         const details = buildLocation(cityStoresList, address);
 
         marker.getElement().addEventListener('click',
-            (function (city) {
+            (function (name) {
                 const activeItem = document.getElementsByClassName('selected');
                 return function () {
                     if (activeItem[0]) {
                         activeItem[0].classList.remove('selected');
                     }
                     details.classList.add('selected');
-                    openCityTab(city);
+                    openCityTab(name);
                 }
-            })(city)
+            })(name)
         );
 
         details.addEventListener('click',
