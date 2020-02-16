@@ -111,27 +111,87 @@
                 </div>
             </div>
         </form>
-        <div id='map' class='full-map'></div>
+        <div id='map' class='full-map'>
+            <div class='tt-overlay-panel -left-top -medium js-foldable' style='width: 200px;'>
+            <div class='tt-form'>
+                <div class='tt-spacing-top-24'>
+                    <label class='tt-form-label'>Traffic layers</label>
+                    <input type='checkbox' class='tt-checkbox layer-checkbox' id='incidents' checked='true'>
+                    <label class='tt-label' for="incidents">Incidents</label>
+                    <input type='checkbox' class='tt-checkbox layer-checkbox' id='flow' checked='true'>
+                    <label class='tt-label' for="flow">Flow</label>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/maps/maps-web.min.js'></script>
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/services/services-web.min.js'></script>
     <script type='text/javascript' src='sdk/assets/js/mobile-or-tablet.js'></script>
     <script type='text/javascript' src='sdk/assets/js/search/dom-helpers.js'></script>
     <script type='text/javascript' src='sdk/assets/js/search/results-manager.js'></script>
+    <script type='text/javascript' src='sdk/assets/js/foldable.js'></script>
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/1.0.8//SearchBox-web.js'></script>
     <script>
+        var flowConfig = {
+            key: '893Mw9l1D4jhPakem7Eyy6SjSLWyahAx',
+            style: 'tomtom://vector/1/relative0',
+            refresh: 30000
+        };
+        var incidentConfig = {
+            key: '893Mw9l1D4jhPakem7Eyy6SjSLWyahAx',
+            incidentDetails:  {
+                style: 's0'
+            },
+            incidentTiles: {
+                style: 'tomtom://vector/1/s0'
+            },
+            refresh: 30000
+        };
         var map = tt.map({
-            key: 'QVPviZXoQi3rDOAsePZz89qx9wUkIbBz',
+            key: '893Mw9l1D4jhPakem7Eyy6SjSLWyahAx',
             container: 'map',
             style: 'tomtom://vector/1/basic-main',
             dragPan: !isMobileOrTablet()
         });
         var instructionsContent = document.querySelector('.groups-content');
         var spinner = document.querySelector('.spinner');
+        var flowTier = new tt.TrafficFlowTilesTier(flowConfig);
+        var incidentsTier = new tt.TrafficIncidentTier(incidentConfig);
+        map.addTier(flowTier);
+        map.addTier(incidentsTier);
 
         map.addControl(new tt.FullscreenControl());
         map.addControl(new tt.NavigationControl());
         map.once('load', handleCalculateRouteRequest);
+
+        var tierIDs = {
+            flow: flowTier.getId(),
+            incidents: incidentsTier.getId()
+        };
+
+        //bind events
+        document.querySelector('#flow').addEventListener('change', function(event) {
+            if (event.target.checked) {
+                var tier = new tt.TrafficFlowTilesTier(flowConfig);
+                tierIDs.flow = tier.getId();
+                map.addTier(tier);
+            } else {
+                map.removeTier(tierIDs.flow);
+            }
+        });
+
+        document.querySelector('#incidents').addEventListener('change', function(event) {
+            if (event.target.checked) {
+                var tier = new tt.TrafficIncidentTier(incidentConfig);
+                tierIDs.incidents = tier.getId();
+                map.addTier(tier);
+            } else {
+                map.removeTier(tierIDs.incidents);
+            }
+        });
+        new Foldable('.js-foldable', 'top-right');
+
 
         function addMarkers(feature) {
             var startPoint = feature.geometry.coordinates[0];
@@ -192,7 +252,7 @@
 
         function handleCalculateRouteRequest() {
             var callParameters = {
-                key: 'QVPviZXoQi3rDOAsePZz89qx9wUkIbBz',
+                key: '893Mw9l1D4jhPakem7Eyy6SjSLWyahAx',
                 instructionsType: 'tagged',
                 traffic: false,
                 locations: '-122.39000,37.786000:-122.395130,37.786390'
