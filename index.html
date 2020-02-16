@@ -76,9 +76,9 @@
             const map = tt.map({
                 key: apiKey,
                 container: 'map',
-                center: [-122.399048, 37.785461],
+                center: [-122.393048, 37.788461],
                 style: 'tomtom://vector/1/basic-main',
-                zoom: 14
+                zoom: 15
             });
 
             map.addControl(new tt.FullscreenControl());
@@ -92,7 +92,7 @@
                 const city = store.properties.city;
                 const address = store.properties.address;
                 const location = store.geometry.coordinates;
-                const marker = new tt.Marker().setLngLat(location).setPopup(new tt.Popup({ offset: 55 }).setHTML("<b>" + name + "</b>" + "<br/>" + address + "<br/><a href='SFWrap.html'><button type='button' class='btn btn-primary'>View Menu</button></a>")).addTo(map);
+                const marker = new tt.Marker().setLngLat(location).setPopup(new tt.Popup({ offset: 55 }).setHTML("<b>" + name + "</b>" + "<br/>" + address + "<br/><a href='"+name.replace(/\s/g, "")+".html'><button type='button' class='btn btn-primary'>View Menu</button></a>")).addTo(map);
                 markersCity[index] = { marker, city };
 
                 let cityStoresList = document.getElementById(name);

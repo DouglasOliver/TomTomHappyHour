@@ -74,6 +74,126 @@ const stores = {
             "city": "San Francisco",
             "name": "SF Wraps"
         }
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.402402,
+				37.794424
+            ]
+        },
+        "properties": {
+            "address": "558 Sacramento St, San Francisco, CA 94111",
+            "city": "San Francisco",
+            "name": "Wayfare Tavern"
+        }
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.392207,
+				37.792890
+            ]
+        },
+        "properties": {
+            "address": "161 Steuart St, San Francisco, CA 94105",
+            "city": "San Francisco",
+            "name": "Ozumo SF"
+        }
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.391110,
+				37.789847
+            ]
+        },
+        "properties": {
+            "address": "300 Spear St, San Francisco, CA 94105",
+            "city": "San Francisco",
+            "name": "Prospect"
+		}
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.394828,
+				37.789615
+            ]
+        },
+        "properties": {
+            "address": "215 Fremont St #2b, San Francisco, CA 94105",
+            "city": "San Francisco",
+            "name": "Fayala, Mediterranean Grill"
+        }
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.396820,
+				37.791079
+            ]
+        },
+        "properties": {
+            "address": "350 Mission St, San Francisco, CA 94105",
+            "city": "San Francisco",
+            "name": "Trailblazer Tavern"
+        }
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.389074,
+				37.790662
+            ]
+        },
+        "properties": {
+            "address": "399 The Embarcadero, San Francisco, CA 94105",
+            "city": "San Francisco",
+            "name": "Waterbar Restaurant"
+        }
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.392219,
+				37.793345
+            ]
+        },
+        "properties": {
+            "address": "132 The Embarcadero, San Francisco, CA 94105",
+            "city": "San Francisco",
+            "name": "Angler Restaurant"
+        }
+    },
+	{
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+				-122.395122,
+				37.789728
+            ]
+        },
+        "properties": {
+            "address": "342 Howard St, San Francisco, CA 94105",
+            "city": "San Francisco",
+            "name": "Townhall Restaurant"
+        }
     }
     ]
 };
