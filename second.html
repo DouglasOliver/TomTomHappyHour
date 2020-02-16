@@ -11,6 +11,7 @@
         <link rel='stylesheet' type='text/css' href='sdk/assets/ui-library/index.css'/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
        
     </head>
     <style>
@@ -37,23 +38,70 @@
             height: 35em;
             width: 35em;
         }
+
+        .jumbotron {
+            background-image: url("https://res.cloudinary.com/dqajizhli/image/upload/v1581863961/more-diet.jpg");
+            background-size: cover;
+            height: 600px;
+                    }
+
+        .original-price{
+            color: red;
+        }
+
+        .discount-price{
+            color:green;
+
+        }
+
+        .food-text{
+            text-align: center;
+        }
+
+        .description{
+            font-family: Lobster;
+            font-size: 30px;
+            color: rgb(212, 175, 55);
+        }
+
+        #cover-photo{
+            margin-left: 10px;
+        }
+
+        .card-deck{
+            margin: 10px;
+        }
     </style>
     <body>
-        <div class="container">
-        <div class="jumbotron jumbotron-fluid" style="background: #fd5e53">
+        
+        <div class="row no-gutters">
+                <div class="col-md">
+                      <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581830616/HHlogo.png" id = "cover-photo" alt = "logo" style ="height: 100px; width: 100px">
+                </div>
+                 <div class="col-md">
+                    <div class="card-body container">
+                        <p>Quality food to save the world </p>
+                        <p>and your budget</p>
+                    </div>
+                </div>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid">
             <div class="container" >
-                <h1 class="display-4">Happy Hour</h1>
-                <p class="lead">Quality food to save the planet and your budget.</p>
             </div>
         </div>
+        <br>
+        <br>
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="card-body">
-                        <h5 class="card-title">Restaurant Name (database)</h5>
-                        <p class="card-text">Address string (database)</p>
-                        <p class="card-text">Travel Time (TomTom API) </p>
-                        <p class="card-text"><small class="text-muted">Cuisine (database)</small></p>
+                        <h5 class="card-title">Restaurant Name: SF Wraps</h5>
+                        <p class="card-text">Address: 255 Kearny Street</p>
+                        <p class="card-text">Travel Time: 4 minutes</p>
+                        <p class="card-text">Cuisine: Greek</p>
+                        <p class="card-text">Rating: &#127775;&#127775;&#127775;&#127775;&#127775;</p>
+                        <p class="card-text description">SF Wraps feeds your soul with our nourishing Greek flavors for late night studies. Have a bite of our gourmet wraps, sandwiches, and bowls at a discount all while saving us over 80Ibs of food waste per day! &#128523; &#128184;</p>
                     </div>
                 </div>
                 <div class="col">
@@ -61,9 +109,6 @@
             </div>
         </div>
         </div>
-
-
-        
         <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/maps/maps-web.min.js'></script>
         <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/services/services-web.min.js'></script>
         <script type='text/javascript' src='sdk/assets/js/formatters.js'></script>
@@ -181,5 +226,49 @@
                 createPopup(feature, event.lngLat);
             }
         </script>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="card-deck">
+        <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581828890/sfwrapFood1.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Buffalo Chicken Wrap</h5>
+                    <p class="card-text original-price">Original Price: $7.95</p>
+                    <p class="card-text discount-price">Happy Hour Price: $3.50</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+        <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581829990/oasisgrillFood1.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Chicken Shawarma Plate</h5>
+                    <p class="card-text original-price">Original Price: $19.99</p>
+                    <p class="card-text discount-price">Happy Hour Price: $8.75</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+        <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581864370/medium.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Roast Beef Sandwich</h5>
+                    <p class="card-text original-price">Original Price: $10.95</p>
+                    <p class="card-text discount-price">Happy Hour Price: $4.99</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+
+         <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581830028/dragoneatsFood2.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Roasted Pork Bowl</h5>
+                    <p class="card-text original-price">Original Price: $9.98</p>
+                    <p class="card-text discount-price">Happy Hour Price: $6.00</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+
+        </div>
     </body>
 </html>
