@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+        <meta charset='UTF-8'>
+         <title>Happy Hour</title>
+        <meta name='viewport'
+            content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'/>
+        <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/maps/maps.css'>
+        <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/maps/css-styles/routing.css'/>
+        <link rel='stylesheet' type='text/css' href='sdk/assets/ui-library/index.css'/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Happy Hour</title>
     <link href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.40.1/maps/maps.css' rel='stylesheet' type='text/css'>
     <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.40.1/maps/maps-web.min.js'></script>
@@ -10,7 +20,35 @@
     <script src='https://code.jquery.com/jquery-1.12.4.js'></script>
     <script src='https://code.jquery.com/ui/1.12.1/jquery-ui.js'></script>
 </head>
+    <style>
+        .icon {
+            background-size: cover;
+            height: 30px;
+            width: 30px;
+        }
+        .tt-pop-up-container .pop-up-content.-small {
+            padding: 0 4px 2px;
+        }
+        .route-marker {
+            align-items: center;
+            background-color: #4a90e2;
+            border: solid 3px #2faaff;
+            border-radius: 50%;
+            display: flex;
+            height: 32px;
+            justify-content: center;
+            transition: width .1s, height .1s;
+            width: 32px;
+        }
+        .route{
+            height: 35em;
+            width: 35em;
+        }
+    </style>
 <body>
+        <div class="container">
+
+		
 <div class='control-panel'>
     <div class='heading'>
         <img src='img/HHlogo.png'>
@@ -138,5 +176,6 @@
         });
     });
 </script>
+</div>
 </body>
 </html>
