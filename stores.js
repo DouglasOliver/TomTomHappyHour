@@ -50,8 +50,8 @@ const stores = {
         "geometry": {
             "type": "Point",
             "coordinates": [
-                -122.397590,
-                37.789490
+                -122.397592,
+                37.789313
             ]
         },
         "properties": {

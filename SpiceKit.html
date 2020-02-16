@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class='use-all-space'>
+    <head>
+        <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+        <meta charset='UTF-8'>
+         <title>Happy Hour</title>
+        <meta name='viewport'
+            content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no'/>
+        <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/maps/maps.css'>
+        <link rel='stylesheet' type='text/css' href='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/maps/css-styles/routing.css'/>
+        <link rel='stylesheet' type='text/css' href='sdk/assets/ui-library/index.css'/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+       
+    </head>
+    <style>
+        .icon {
+            background-size: cover;
+            height: 30px;
+            width: 30px;
+        }
+        .tt-pop-up-container .pop-up-content.-small {
+            padding: 0 4px 2px;
+        }
+        .route-marker {
+            align-items: center;
+            background-color: #4a90e2;
+            border: solid 3px #2faaff;
+            border-radius: 50%;
+            display: flex;
+            height: 32px;
+            justify-content: center;
+            transition: width .1s, height .1s;
+            width: 32px;
+        }
+        .route{
+            height: 35em;
+            width: 35em;
+        }
+
+        .jumbotron {
+            background-image: url("https://res.cloudinary.com/dqajizhli/image/upload/v1581875651/dragoneatsCover.jpg");
+            background-size: cover;
+            height: 300px;
+                    }
+
+        .original-price{
+            color: red;
+        }
+
+        .discount-price{
+            color:green;
+
+        }
+
+        .food-text{
+            text-align: center;
+        }
+
+        .description{
+            font-family: Lobster;
+            font-size: 30px;
+            color: #39ff14;
+        }
+
+        #cover-photo{
+            margin-left: 80px;
+        }
+
+        .card-deck{
+            margin: 10px;
+        }
+    </style>
+    <body>
+        
+        <div class="row no-gutters">
+                <div class="col-1">
+                      <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581830616/HHlogo.png" id = "cover-photo" alt = "logo" style ="height: 100px;">
+                </div>
+                 <div class="col-11">
+                    <div class="card-body container">
+                        <h1>Happy Hour</h1>
+                        <p>Quality food to save the world and your budget!</p>
+                    </div>
+                </div>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container" >
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card-body">
+                        <h3 class="card-title">Spice Kit</h3>
+                        <p class="card-text">405 Howard St #310, San Francisco, CA 94105</p>
+                        <p class="card-text">Travel Time: 5 minutes 55 seconds</p>
+                        <p class="card-text">Cuisine: Spicy Goodness</p>
+                        <p class="card-text">Rating: &#127775;&#127775;&#127775;&#127775;&#127775;</p>
+                        <p class="card-text description">Food memories that keep burning &#128523;</p>
+                    </div>
+                </div>
+                <div class="col">
+            <div id='map' class='map route' ></div>  
+            </div>
+        </div>
+        </div>
+        <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/maps/maps-web.min.js'></script>
+        <script src='https://api.tomtom.com/maps-sdk-for-web/cdn/5.x/5.45.0/services/services-web.min.js'></script>
+        <script type='text/javascript' src='sdk/assets/js/formatters.js'></script>
+        <script type='text/javascript' src='sdk/assets/js/info-hint.js'></script>
+        <script type='text/javascript' src='sdk/assets/js/mobile-or-tablet.js'></script>
+        <script>
+            var map = tt.map({
+                key: 'QVPviZXoQi3rDOAsePZz89qx9wUkIbBz',
+                container: 'map',
+                style: 'tomtom://vector/1/basic-main',
+                center: [-122.399048, 37.785461],
+                zoom: 40, 
+                dragPan: !isMobileOrTablet()
+            });
+            var popup;
+            var routeColors = ['#4a90e2', '#fcba03', '#fc0303', '#03fc84', '#7703fc'];
+            var infoHint = new InfoHint('info', 'bottom-center').addTo(document.getElementById('map'));
+
+            map.addControl(new tt.FullscreenControl());
+            map.addControl(new tt.NavigationControl());
+            map.once('load', handleCalculateRouteRequest);
+
+            function addMarkers(feature) {
+                var startPoint = feature.geometry.coordinates[0];
+                var endPoint = feature.geometry.coordinates[feature.geometry.coordinates.length - 1];
+
+                new tt.Marker({ element: createMarkerElement('start') }).setLngLat(startPoint).addTo(map);
+                new tt.Marker({ element: createMarkerElement('finish') }).setLngLat(endPoint).addTo(map);
+            }
+
+            function createMarkerElement(type) {
+                var element = document.createElement('div');
+                var innerElement = document.createElement('div');
+
+                element.className = 'route-marker';
+                innerElement.className = 'icon tt-icon -white -' + type;
+                element.appendChild(innerElement);
+                return element;
+            }
+
+            function createPopup(feature, lngLat) {
+                popup = new tt.Popup({ className: 'tt-popup', offset: [0, 18] })
+                    .setLngLat(lngLat)
+                    .setHTML(
+                        '<div class="tt-pop-up-container">' +
+                            '<div class="pop-up-content -small">' +
+                                '<div class="pop-up-result-address">' +
+                                    'Distance: ' + Formatters.formatAsMetricDistance(feature.lengthInMeters) +
+                                '</div>' +
+                                '<div class="pop-up-result-address">' +
+                                    'Estimated travel time: ' + Formatters.convertToTimeFormat(feature.travelTimeInSeconds) +
+                                '</div>' +
+                                '<div class="pop-up-result-address">' +
+                                    'Traffic delay: ' + Formatters.convertToTimeFormat(feature.trafficDelayInSeconds) +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
+                    )
+                    .setMaxWidth('none');
+                popup.addTo(map);
+            }
+
+            function handleCalculateRouteRequest() {
+                var callParameters = {
+                    key: 'QVPviZXoQi3rDOAsePZz89qx9wUkIbBz',
+                    maxAlternatives: 2,
+                    traffic: false,
+                    locations: '-122.395130,37.786390:-122.395142,37.788528'
+                    
+                };
+
+                tt.services.calculateRoute(callParameters)
+                    .go()
+                    .then(function(response) {
+                        var features = response.toGeoJson().features;
+
+                        features.forEach(function(feature, index) {
+                            map.addLayer({
+                                'id': 'route' + index,
+                                'type': 'line',
+                                'source': {
+                                    'type': 'geojson',
+                                    'data': feature
+                                },
+                                'paint': {
+                                    'line-color': routeColors[index],
+                                    'line-width': 4
+                                }
+                            });
+                            map.on('mouseover', 'route' + index, onPopupTrigger);
+                        });
+                        addMarkers(features[0]);
+                        var bounds = new tt.LngLatBounds();
+                        var coordinates = features[0].geometry.coordinates;
+                        var lngLat = coordinates[Math.floor(coordinates.length / 2)];
+                        var summary = features[0].properties.summary;
+
+                        createPopup(summary, lngLat);
+                        coordinates.forEach(function(point) {
+                            bounds.extend(tt.LngLat.convert(point));
+                        });
+                        map.fitBounds(bounds, { duration: 0, padding: 150 });
+                        infoHint.setMessage('Hover over the route to display a popup with route information');
+                    });
+            }
+
+            function onPopupTrigger(event) {
+                if (!infoHint.isHidden()) {
+                    infoHint.hide();
+                }
+                if (popup) {
+                    popup.remove();
+                }
+                var feature = JSON.parse(event.features[0].properties.summary);
+
+                createPopup(feature, event.lngLat);
+            }
+        </script>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="card-deck">
+        <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581863670/Kurobuta-Pork-Belly-Banh-Mi.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Banh Mi Sandwich</h5>
+                    <p class="card-text original-price">Original Price: $9.95</p>
+                    <p class="card-text discount-price">Happy Hour Price: $2.50</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+        <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581876605/asian-noodle-salad-recipe.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Mama Chen Chicken Salad</h5>
+                    <p class="card-text original-price">Original Price: $12.99</p>
+                    <p class="card-text discount-price">Happy Hour Price: $5.75</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+        <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581876716/pork-dumplings-sl-426475-x.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Pork Dumplings</h5>
+                    <p class="card-text original-price">Original Price: $7.95</p>
+                    <p class="card-text discount-price">Happy Hour Price: $1.99</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+
+         <div class="card">
+            <img src="https://res.cloudinary.com/dqajizhli/image/upload/v1581876779/friedrice.jpg" class="card-img-top" alt="...">
+              <div class="card-body food-text">
+                    <h5 class="card-title">Fried Rice</h5>
+                    <p class="card-text original-price">Original Price: $9.98</p>
+                    <p class="card-text discount-price">Happy Hour Price: $6.00</p>
+                     <a href="#" class="btn btn-primary">Order!</a>
+              </div>
+        </div>
+
+        </div>
+    </body>
+</html>
