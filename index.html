@@ -55,8 +55,18 @@
 
         <div class='control-panel'>
             <div class='heading'>
-                <a href="index.html"><img src='https://res.cloudinary.com/dqajizhli/image/upload/v1581830616/HHlogo.png' alt = "logo" style ="height: 100px; width: 100px"></a>
-                <a>Happy Hour</a>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="index.html"><img
+                                src='https://res.cloudinary.com/dqajizhli/image/upload/v1581830616/HHlogo.png'
+                                alt="logo" style="height: 100px"></a>
+                    </div>
+                    <div class="col-md-9">
+                        <h1>Happy Hour</h1>
+
+                        <p>Quality food to save the world and your budget!</p>
+                    </div>
+                </div>
             </div>
             <div id='store-list'></div>
         </div>
@@ -82,7 +92,7 @@
                 const city = store.properties.city;
                 const address = store.properties.address;
                 const location = store.geometry.coordinates;
-                const marker = new tt.Marker().setLngLat(location).setPopup(new tt.Popup({ offset: 55 }).setHTML("<b>"+name+"</b>" + "<br/>" +address + "<br/><a href='second.html'><button type='button' class='btn btn-primary'>View Menu</button></a>")).addTo(map);
+                const marker = new tt.Marker().setLngLat(location).setPopup(new tt.Popup({ offset: 55 }).setHTML("<b>" + name + "</b>" + "<br/>" + address + "<br/><a href='SFWrap.html'><button type='button' class='btn btn-primary'>View Menu</button></a>")).addTo(map);
                 markersCity[index] = { marker, city };
 
                 let cityStoresList = document.getElementById(name);
